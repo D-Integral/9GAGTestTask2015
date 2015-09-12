@@ -1,0 +1,12 @@
+
+/* Class = "UIViewController"; title = "9GAG"; ObjectID = "9jm-Mz-fnO"; */
+"9jm-Mz-fnO.title" = "9GAG";
+
+/* Class = "UISegmentedControl"; JOP-Mj-9kK.segmentTitles[0] = "Hot"; ObjectID = "JOP-Mj-9kK"; */
+"JOP-Mj-9kK.segmentTitles[0]" = "Hot";
+
+/* Class = "UISegmentedControl"; JOP-Mj-9kK.segmentTitles[1] = "Trending"; ObjectID = "JOP-Mj-9kK"; */
+"JOP-Mj-9kK.segmentTitles[1]" = "Trending";
+
+/* Class = "UISegmentedControl"; JOP-Mj-9kK.segmentTitles[2] = "Fresh"; ObjectID = "JOP-Mj-9kK"; */
+"JOP-Mj-9kK.segmentTitles[2]" = "Fresh";
