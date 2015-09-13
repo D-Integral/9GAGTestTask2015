@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class DataEntry;
+
 @interface HomeCollectionCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *funPicture;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+- (void)setupWithDataEntry:(DataEntry *)dataEntry;
 
 @end

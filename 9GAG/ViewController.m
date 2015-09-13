@@ -12,9 +12,12 @@
 #import "HorizontalScrollableCell.h"
 #import "HomeCollectionCell.h"
 
+#import "DataManager.h"
+#import "DataEntry.h"
+
 NSInteger const HorizontalScrollableSection = 0;
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DataManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,13 +29,24 @@ NSInteger const HorizontalScrollableSection = 0;
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+	[self startDataRetrieving];
 	[self setupNavigationBar];
 	[self highlightSelectedSegment];
 }
 
+#pragma mark -
+
 - (IBAction)segmentChanged:(id)sender {
 	[self highlightSelectedSegment];
 	[self.tableView reloadData];
+}
+
+#pragma mark -
+
+- (void)startDataRetrieving {
+	DataManager *sharedDataManager = [DataManager sharedManager];
+	sharedDataManager.delegate = self;
+	[sharedDataManager retrieveData];
 }
 
 #pragma mark -
@@ -123,7 +137,7 @@ NSInteger const HorizontalScrollableSection = 0;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
 	 numberOfItemsInSection:(NSInteger)section {
-	return 10;
+	return [[[DataManager sharedManager] dataEntries] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -135,13 +149,23 @@ NSInteger const HorizontalScrollableSection = 0;
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	HomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionCell" forIndexPath:indexPath];
 	
-	cell.funPicture.image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
-	cell.titleLabel.text = [self imageNames][self.segmentedControl.selectedSegmentIndex];
+	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row]];
 	
 	return cell;
 }
 
+- (DataEntry *)dataEntryAtIndex:(NSInteger)index {
+	return [[[DataManager sharedManager] dataEntries] objectAtIndex:index];
+}
+
 #pragma mark -
 #pragma mark UICollectionViewDelegate
+
+#pragma mark -
+#pragma mark DataManagerDelegate
+
+- (void)dataRetrieved {
+	[self.tableView reloadData];
+}
 
 @end
