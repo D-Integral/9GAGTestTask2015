@@ -8,9 +8,16 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+#import "HomeTableCell.h"
+#import "HorizontalScrollableCell.h"
+#import "HomeCollectionCell.h"
+
+NSInteger const HorizontalScrollableSection = 0;
+
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -25,6 +32,7 @@
 
 - (IBAction)segmentChanged:(id)sender {
 	[self highlightSelectedSegment];
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -56,5 +64,84 @@
 - (UIColor *)nonSelectedSegmentColor {
 	return [UIColor colorWithRed:0.5195 green:0.5195 blue:0.5195 alpha:1.0];
 }
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+	return HorizontalScrollableSection == section ? 1 : 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+		 cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return HorizontalScrollableSection == indexPath.section ? [self horizontalScrollableCell] : [self standardHomeTableCell];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return HorizontalScrollableSection == indexPath.section ? 160.0f : [self heightForStandardHomeCellWithIndex:indexPath.row];
+}
+
+- (CGFloat)heightForStandardHomeCellWithIndex:(NSInteger)index {
+	UIImage *image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
+	return image.size.height + 45.0f;
+}
+
+#pragma mark -
+
+- (HorizontalScrollableCell *)horizontalScrollableCell {
+	HorizontalScrollableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HorizontalScrollableCell"];
+	cell.collectionView.dataSource = self;
+	cell.collectionView.delegate = self;
+	[cell.collectionView reloadData];
+	
+	return cell;
+}
+
+-(HomeTableCell *)standardHomeTableCell {
+	HomeTableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HomeTableCell"];
+	
+	cell.funPicture.image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
+	cell.titleLabel.text = [self imageNames][self.segmentedControl.selectedSegmentIndex];
+	
+	return cell;
+}
+
+- (NSArray *)imageNames {
+	return @[@"Hot", @"Trending", @"Fresh"];
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+#pragma mark -
+#pragma mark UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+	 numberOfItemsInSection:(NSInteger)section {
+	return 10;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+	return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+	HomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionCell" forIndexPath:indexPath];
+	
+	cell.funPicture.image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
+	cell.titleLabel.text = [self imageNames][self.segmentedControl.selectedSegmentIndex];
+	
+	return cell;
+}
+
+#pragma mark -
+#pragma mark UICollectionViewDelegate
 
 @end

@@ -17,6 +17,12 @@
 		B71F2EF01BA4D29F006C3F28 /* _GAGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2EEF1BA4D29F006C3F28 /* _GAGTests.m */; };
 		B71F2EFF1BA4D60B006C3F28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B71F2F021BA4D60B006C3F28 /* Localizable.strings */; };
 		B71F2F001BA4D60B006C3F28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B71F2F021BA4D60B006C3F28 /* Localizable.strings */; };
+		B71F2F081BA58819006C3F28 /* HomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F061BA58819006C3F28 /* HomeTableCell.m */; };
+		B71F2F091BA58819006C3F28 /* HomeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F061BA58819006C3F28 /* HomeTableCell.m */; };
+		B71F2F0E1BA59AE5006C3F28 /* HorizontalScrollableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F0D1BA59AE5006C3F28 /* HorizontalScrollableCell.m */; };
+		B71F2F0F1BA59AE5006C3F28 /* HorizontalScrollableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F0D1BA59AE5006C3F28 /* HorizontalScrollableCell.m */; };
+		B71F2F121BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F111BA59F7A006C3F28 /* HomeCollectionCell.m */; };
+		B71F2F131BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F111BA59F7A006C3F28 /* HomeCollectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,12 @@
 		B71F2EFE1BA4D5FD006C3F28 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		B71F2F011BA4D60B006C3F28 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B71F2F031BA4D60D006C3F28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B71F2F051BA58819006C3F28 /* HomeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeTableCell.h; path = UI/HomeTableCell.h; sourceTree = "<group>"; };
+		B71F2F061BA58819006C3F28 /* HomeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeTableCell.m; path = UI/HomeTableCell.m; sourceTree = "<group>"; };
+		B71F2F0C1BA59AE5006C3F28 /* HorizontalScrollableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HorizontalScrollableCell.h; path = UI/HorizontalScrollableCell.h; sourceTree = "<group>"; };
+		B71F2F0D1BA59AE5006C3F28 /* HorizontalScrollableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HorizontalScrollableCell.m; path = UI/HorizontalScrollableCell.m; sourceTree = "<group>"; };
+		B71F2F101BA59F7A006C3F28 /* HomeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeCollectionCell.h; path = UI/HomeCollectionCell.h; sourceTree = "<group>"; };
+		B71F2F111BA59F7A006C3F28 /* HomeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeCollectionCell.m; path = UI/HomeCollectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +101,7 @@
 		B71F2ECF1BA4D29F006C3F28 /* 9GAG */ = {
 			isa = PBXGroup;
 			children = (
+				B71F2F041BA5879C006C3F28 /* UI */,
 				B71F2EF91BA4D5AF006C3F28 /* Localization */,
 				B71F2ED41BA4D29F006C3F28 /* AppDelegate.h */,
 				B71F2ED51BA4D29F006C3F28 /* AppDelegate.m */,
@@ -135,6 +148,19 @@
 				B71F2F021BA4D60B006C3F28 /* Localizable.strings */,
 			);
 			name = Localization;
+			sourceTree = "<group>";
+		};
+		B71F2F041BA5879C006C3F28 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B71F2F051BA58819006C3F28 /* HomeTableCell.h */,
+				B71F2F061BA58819006C3F28 /* HomeTableCell.m */,
+				B71F2F0C1BA59AE5006C3F28 /* HorizontalScrollableCell.h */,
+				B71F2F0D1BA59AE5006C3F28 /* HorizontalScrollableCell.m */,
+				B71F2F101BA59F7A006C3F28 /* HomeCollectionCell.h */,
+				B71F2F111BA59F7A006C3F28 /* HomeCollectionCell.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71F2F0E1BA59AE5006C3F28 /* HorizontalScrollableCell.m in Sources */,
 				B71F2ED91BA4D29F006C3F28 /* _GAG.xcdatamodeld in Sources */,
 				B71F2ED61BA4D29F006C3F28 /* AppDelegate.m in Sources */,
+				B71F2F081BA58819006C3F28 /* HomeTableCell.m in Sources */,
+				B71F2F121BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */,
 				B71F2EDC1BA4D29F006C3F28 /* ViewController.m in Sources */,
 				B71F2ED31BA4D29F006C3F28 /* main.m in Sources */,
 			);
@@ -250,7 +279,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71F2F131BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */,
+				B71F2F0F1BA59AE5006C3F28 /* HorizontalScrollableCell.m in Sources */,
 				B71F2EF01BA4D29F006C3F28 /* _GAGTests.m in Sources */,
+				B71F2F091BA58819006C3F28 /* HomeTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +364,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -370,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
