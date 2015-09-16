@@ -185,7 +185,6 @@
 		B71F2ECF1BA4D29F006C3F28 /* 9GAG */ = {
 			isa = PBXGroup;
 			children = (
-				B72ED1741BA62A50005A2765 /* SDWebImage */,
 				B72ED1961BA62A50005A2765 /* WebImage */,
 				B71F2F1C1BA60463006C3F28 /* Data */,
 				B71F2F041BA5879C006C3F28 /* UI */,
@@ -199,6 +198,7 @@
 				B71F2EE21BA4D29F006C3F28 /* LaunchScreen.xib */,
 				B71F2ED71BA4D29F006C3F28 /* _GAG.xcdatamodeld */,
 				B71F2ED01BA4D29F006C3F28 /* Supporting Files */,
+				B72ED1741BA62A50005A2765 /* SDWebImage */,
 			);
 			path = 9GAG;
 			sourceTree = "<group>";
@@ -373,7 +373,7 @@
 		B71F2EC51BA4D29F006C3F28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dima Skorokhod";
 				TargetAttributes = {
 					B71F2ECC1BA4D29F006C3F28 = {
@@ -587,6 +587,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -656,6 +657,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = 9GAG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -668,6 +670,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = 9GAG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -687,6 +690,7 @@
 				);
 				INFOPLIST_FILE = 9GAGTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/9GAG.app/9GAG";
 			};
@@ -703,6 +707,7 @@
 				);
 				INFOPLIST_FILE = 9GAGTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/9GAG.app/9GAG";
 			};

@@ -15,9 +15,10 @@
 #import "DataManager.h"
 #import "DataEntry.h"
 
-NSInteger const HorizontalScrollableSection = 0;
+NSInteger const AdSectionIndex = 0;
+CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DataManagerDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DataManagerDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -88,21 +89,21 @@ NSInteger const HorizontalScrollableSection = 0;
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-	return HorizontalScrollableSection == section ? 1 : 10;
+	return AdSectionIndex == section ? 1 : [[[DataManager sharedManager] dataEntries] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
 		 cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return HorizontalScrollableSection == indexPath.section ? [self horizontalScrollableCell] : [self standardHomeTableCell];
+	return AdSectionIndex == indexPath.section ? [self horizontalScrollableCell] : [self standardHomeTableCell:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return HorizontalScrollableSection == indexPath.section ? 160.0f : [self heightForStandardHomeCellWithIndex:indexPath.row];
+	return AdSectionIndex == indexPath.section ? AdSectionItemSize.height : [self heightForStandardHomeCellWithIndex:indexPath.row];
 }
 
 - (CGFloat)heightForStandardHomeCellWithIndex:(NSInteger)index {
-	UIImage *image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
-	return image.size.height + 45.0f;
+	DataEntry *dataEntry = [self dataEntryAtIndex:index];
+	return dataEntry.imageHeight + 45.0f;
 }
 
 #pragma mark -
@@ -113,20 +114,18 @@ NSInteger const HorizontalScrollableSection = 0;
 	cell.collectionView.delegate = self;
 	[cell.collectionView reloadData];
 	
+	UICollectionViewFlowLayout *layout = (id)cell.collectionView.collectionViewLayout;
+	layout.itemSize = CGSizeMake(AdSectionItemSize.width, cell.collectionView.frame.size.height);
+	
 	return cell;
 }
 
--(HomeTableCell *)standardHomeTableCell {
+-(HomeTableCell *)standardHomeTableCell:(NSIndexPath *)indexPath {
 	HomeTableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HomeTableCell"];
 	
-	cell.funPicture.image = [UIImage imageNamed:[self imageNames][self.segmentedControl.selectedSegmentIndex]];
-	cell.titleLabel.text = [self imageNames][self.segmentedControl.selectedSegmentIndex];
+	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row]];
 	
 	return cell;
-}
-
-- (NSArray *)imageNames {
-	return @[@"Hot", @"Trending", @"Fresh"];
 }
 
 #pragma mark -
@@ -166,6 +165,20 @@ NSInteger const HorizontalScrollableSection = 0;
 
 - (void)dataRetrieved {
 	[self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView_
+{
+	CGFloat actualPosition = scrollView_.contentOffset.y;
+	CGFloat contentHeight = scrollView_.contentSize.height - self.view.frame.size.height;
+	
+	if (actualPosition >= contentHeight) {
+		[[DataManager sharedManager] loadMore];
+		[self.tableView reloadData];
+	}
 }
 
 @end

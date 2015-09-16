@@ -8,6 +8,17 @@
 
 #import "HomeTableCell.h"
 
+#import "UIImageView+WebCache.h"
+
+#import "DataEntry.h"
+
 @implementation HomeTableCell
+
+- (void)setupWithDataEntry:(DataEntry *)dataEntry {
+	self.titleLabel.text = dataEntry.title;
+	
+	NSURL *url = [NSURL URLWithString:dataEntry.imagePath];
+	[self.funPicture sd_setImageWithURL:url];
+}
 
 @end

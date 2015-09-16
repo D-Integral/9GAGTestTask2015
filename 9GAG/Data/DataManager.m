@@ -13,6 +13,12 @@
 
 static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 
+@interface DataManager ()
+
+@property (nonatomic, assign) NSInteger pageNumber;
+
+@end
+
 @implementation DataManager
 
 + (id)sharedManager {
@@ -21,6 +27,8 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 	
 	dispatch_once(&onceToken, ^{
 		sharedManager = [[self alloc] init];
+		sharedManager.dataEntries = [NSMutableArray array];
+		sharedManager.pageNumber = 1;
 	});
 	
 	return sharedManager;
@@ -46,20 +54,23 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 }
 
 - (NSString *)allDataPath {
-	return [NSString stringWithFormat:@"%@api/image/", BaseURLString];
+	return [NSString stringWithFormat:@"%@api/image/?limit=10&page=%ld", BaseURLString, (long)self.pageNumber];
 }
 
 - (void)setupDataWithResponseArray:(NSArray *)responseArray {
-	NSMutableArray *dataEntries = [NSMutableArray array];
-	
 	for (NSDictionary * entryDict in responseArray) {
 		DataEntry *entry = [DataEntry new];
 		entry.title = entryDict[@"title"];
 		entry.imagePath = [NSString stringWithFormat:@"%@%@", BaseURLString, entryDict[@"path"]];
-		[dataEntries addObject:entry];
+		entry.imageHeight = 100;
+		[self.dataEntries addObject:entry];
 	}
+}
+
+- (void)loadMore {
+	self.pageNumber++;
 	
-	self.dataEntries = dataEntries;
+	[self retrieveData];
 }
 
 @end

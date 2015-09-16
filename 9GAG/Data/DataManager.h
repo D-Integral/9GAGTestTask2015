@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString * const HotDataKey = @"hot";
+static NSString * const TrendingDataKey = @"trending";
+static NSString * const FreshDataKey = @"fresh";
+
 @protocol DataManagerDelegate <NSObject>
 
 - (void)dataRetrieved;
@@ -16,11 +20,12 @@
 
 @interface DataManager : NSObject
 
-@property (nonatomic, retain) NSArray *dataEntries;
+@property (nonatomic, retain) NSMutableArray *dataEntries;
 @property (nonatomic, weak) id<DataManagerDelegate> delegate;
 
 + (id)sharedManager;
 
 - (void)retrieveData;
+- (void)loadMore;
 
 @end

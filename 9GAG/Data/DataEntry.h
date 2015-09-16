@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *imagePath;
+@property (nonatomic, assign) NSInteger imageHeight;
 
 @end
