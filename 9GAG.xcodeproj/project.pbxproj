@@ -31,11 +31,19 @@
 		B73C14B61BAA31B90089FD0E /* GAGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B73C14B41BAA31B90089FD0E /* GAGNavigationController.m */; settings = {ASSET_TAGS = (); }; };
 		B757C06B1BAA97F8003F14A7 /* DataCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B757C06A1BAA97F8003F14A7 /* DataCollection.m */; settings = {ASSET_TAGS = (); }; };
 		B757C06C1BAA97F8003F14A7 /* DataCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B757C06A1BAA97F8003F14A7 /* DataCollection.m */; settings = {ASSET_TAGS = (); }; };
+		B757C0911BAB65EC003F14A7 /* _GAGUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B757C0901BAB65EC003F14A7 /* _GAGUITests.m */; };
 		BCBC33D07270F6FCCBCBBDF0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1A0E95D6C4F32D132613F1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		B71F2EEA1BA4D29F006C3F28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B71F2EC51BA4D29F006C3F28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B71F2ECC1BA4D29F006C3F28;
+			remoteInfo = 9GAG;
+		};
+		B757C0931BAB65EC003F14A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B71F2EC51BA4D29F006C3F28 /* Project object */;
 			proxyType = 1;
@@ -79,6 +87,9 @@
 		B73C14B41BAA31B90089FD0E /* GAGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GAGNavigationController.m; path = UI/GAGNavigationController.m; sourceTree = "<group>"; };
 		B757C0691BAA97F8003F14A7 /* DataCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataCollection.h; path = Data/DataCollection.h; sourceTree = "<group>"; };
 		B757C06A1BAA97F8003F14A7 /* DataCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataCollection.m; path = Data/DataCollection.m; sourceTree = "<group>"; };
+		B757C08E1BAB65EC003F14A7 /* 9GAGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 9GAGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B757C0901BAB65EC003F14A7 /* _GAGUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _GAGUITests.m; sourceTree = "<group>"; };
+		B757C0921BAB65EC003F14A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD1A0E95D6C4F32D132613F1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -98,6 +109,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B757C08B1BAB65EC003F14A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -106,6 +124,7 @@
 			children = (
 				B71F2ECF1BA4D29F006C3F28 /* 9GAG */,
 				B71F2EEC1BA4D29F006C3F28 /* 9GAGTests */,
+				B757C08F1BAB65EC003F14A7 /* 9GAGUITests */,
 				B71F2ECE1BA4D29F006C3F28 /* Products */,
 				EDFCBCBB2E18BA0A83C7B35A /* Pods */,
 				F326DAA05AD86DC014EC1A53 /* Frameworks */,
@@ -117,6 +136,7 @@
 			children = (
 				B71F2ECD1BA4D29F006C3F28 /* 9GAG.app */,
 				B71F2EE91BA4D29F006C3F28 /* 9GAGTests.xctest */,
+				B757C08E1BAB65EC003F14A7 /* 9GAGUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +222,15 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		B757C08F1BAB65EC003F14A7 /* 9GAGUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B757C0901BAB65EC003F14A7 /* _GAGUITests.m */,
+				B757C0921BAB65EC003F14A7 /* Info.plist */,
+			);
+			path = 9GAGUITests;
+			sourceTree = "<group>";
+		};
 		EDFCBCBB2E18BA0A83C7B35A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +288,24 @@
 			productReference = B71F2EE91BA4D29F006C3F28 /* 9GAGTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B757C08D1BAB65EC003F14A7 /* 9GAGUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B757C0971BAB65EC003F14A7 /* Build configuration list for PBXNativeTarget "9GAGUITests" */;
+			buildPhases = (
+				B757C08A1BAB65EC003F14A7 /* Sources */,
+				B757C08B1BAB65EC003F14A7 /* Frameworks */,
+				B757C08C1BAB65EC003F14A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B757C0941BAB65EC003F14A7 /* PBXTargetDependency */,
+			);
+			name = 9GAGUITests;
+			productName = 9GAGUITests;
+			productReference = B757C08E1BAB65EC003F14A7 /* 9GAGUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -274,6 +321,10 @@
 					};
 					B71F2EE81BA4D29F006C3F28 = {
 						CreatedOnToolsVersion = 6.4;
+						TestTargetID = B71F2ECC1BA4D29F006C3F28;
+					};
+					B757C08D1BAB65EC003F14A7 = {
+						CreatedOnToolsVersion = 7.0;
 						TestTargetID = B71F2ECC1BA4D29F006C3F28;
 					};
 				};
@@ -293,6 +344,7 @@
 			targets = (
 				B71F2ECC1BA4D29F006C3F28 /* 9GAG */,
 				B71F2EE81BA4D29F006C3F28 /* 9GAGTests */,
+				B757C08D1BAB65EC003F14A7 /* 9GAGUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -314,6 +366,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B71F2F001BA4D60B006C3F28 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B757C08C1BAB65EC003F14A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +445,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B757C08A1BAB65EC003F14A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B757C0911BAB65EC003F14A7 /* _GAGUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -393,6 +460,11 @@
 			isa = PBXTargetDependency;
 			target = B71F2ECC1BA4D29F006C3F28 /* 9GAG */;
 			targetProxy = B71F2EEA1BA4D29F006C3F28 /* PBXContainerItemProxy */;
+		};
+		B757C0941BAB65EC003F14A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B71F2ECC1BA4D29F006C3F28 /* 9GAG */;
+			targetProxy = B757C0931BAB65EC003F14A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -575,6 +647,33 @@
 			};
 			name = Release;
 		};
+		B757C0951BAB65EC003F14A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = 9GAGUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.-GAGUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = 9GAG;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		B757C0961BAB65EC003F14A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = 9GAGUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.d-integral.-GAGUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = 9GAG;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,6 +703,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		B757C0971BAB65EC003F14A7 /* Build configuration list for PBXNativeTarget "9GAGUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B757C0951BAB65EC003F14A7 /* Debug */,
+				B757C0961BAB65EC003F14A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
