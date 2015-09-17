@@ -225,10 +225,14 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	CGFloat loadMorePoint = scrollView.contentSize.height - self.tableView.frame.size.height * 2;
 	
 	if (actualPosition >= loadMorePoint) {
-		[[DataManager sharedManager] loadMoreForKey:[self dataKeyForCurrentSegment]];
+		[[DataManager sharedManager] loadMoreForKey:[self dataKeyForScrollView:scrollView]];
 	}
 	
 	[self saveScrollPosition];
+}
+
+- (NSString *)dataKeyForScrollView:(UIScrollView *)scrollView {
+	return [scrollView isMemberOfClass:[UICollectionView class]] ? kAdDataKey : [self dataKeyForCurrentSegment];
 }
 
 @end
