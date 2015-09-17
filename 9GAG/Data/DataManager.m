@@ -10,10 +10,11 @@
 
 #import <AFNetworking.h>
 #import "DataEntry.h"
+#import "DataCollection.h"
 
 static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 
-@interface DataManager ()
+@interface DataManager () <DataCollectionDelegate>
 
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, assign) NSInteger loadingPage;
@@ -28,68 +29,43 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 	
 	dispatch_once(&onceToken, ^{
 		sharedManager = [[self alloc] init];
-		NSMutableDictionary *dataEntries = [NSMutableDictionary dictionary];
+		NSMutableDictionary *dataCollections = [NSMutableDictionary dictionary];
 		
 		for (NSString *dataKey in [self dataKeys]) {
-			[dataEntries setValue:[NSMutableArray array] forKey:dataKey];
+			DataCollection *collection = [DataCollection collectionWithKey:dataKey
+																  delegate:sharedManager];
+			[dataCollections setValue:collection forKey:dataKey];
 		}
 		
-		sharedManager.dataEntries = dataEntries;
-		sharedManager.currentPage = -1;
-		sharedManager.loadingPage = 1;
+		sharedManager.dataCollections = dataCollections;
 	});
 	
 	return sharedManager;
 }
 
 + (NSArray *)dataKeys {
-	return @[HotDataKey, TrendingDataKey, FreshDataKey, AdDataKey];
+	return @[kHotDataKey, kTrendingDataKey, kFreshDataKey, kAdDataKey];
 }
 
-- (void)retrieveData
+- (void)retrieveDataForKey:(NSString *)key
 {
-	NSURL *url = [NSURL URLWithString:[self allDataPath]];
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	DataCollection *collection = self.dataCollections[key];
+	[collection retrieveData];
+}
+
+- (void)loadMoreForKey:(NSString *)key {
+	DataCollection *collection = self.dataCollections[key];
+	[collection loadMore];
+}
+
+- (void)dataRetrievedForCollection:(DataCollection *)collection {
+	[self.delegate dataRetrieved];
+}
+
+- (NSArray *)entriesForKey:(NSString *)key {
+	DataCollection *collection = self.dataCollections[key];
 	
-	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-	operation.responseSerializer = [AFJSONResponseSerializer serializer];
-	
-	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-		[self setupDataWithResponseArray:(NSArray *)responseObject];
-		self.currentPage = self.loadingPage;
-		[self.delegate dataRetrieved];
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSLog(@"Error Retrieving Data: %@", [error localizedDescription]);
-	}];
-	
-	[operation start];
-}
-
-- (NSString *)allDataPath {
-	return [NSString stringWithFormat:@"%@api/image/?limit=10&page=%ld", BaseURLString, (long)self.loadingPage];
-}
-
-- (void)setupDataWithResponseArray:(NSArray *)responseArray {
-	for (NSDictionary * entryDict in responseArray) {
-		DataEntry *entry = [DataEntry new];
-		entry.title = entryDict[@"title"];
-		entry.imagePath = [NSString stringWithFormat:@"%@%@", BaseURLString, entryDict[@"path"]];
-		entry.imageHeight = 100;
-		[self.dataEntries[HotDataKey] addObject:entry];
-	}
-}
-
-- (void)loadMore {
-	if (self.currentPage == self.loadingPage) {
-		self.loadingPage++;
-		[self retrieveData];
-	}
-}
-
-- (void)resetData {
-	self.currentPage = -1;
-	self.loadingPage = 1;
-	[self.dataEntries[HotDataKey] removeAllObjects];
+	return collection.entries;
 }
 
 @end

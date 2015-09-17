@@ -29,6 +29,8 @@
 		B71F2F241BA60FEB006C3F28 /* DataEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = B71F2F221BA60FEB006C3F28 /* DataEntry.m */; };
 		B73C14B51BAA31B90089FD0E /* GAGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B73C14B41BAA31B90089FD0E /* GAGNavigationController.m */; settings = {ASSET_TAGS = (); }; };
 		B73C14B61BAA31B90089FD0E /* GAGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B73C14B41BAA31B90089FD0E /* GAGNavigationController.m */; settings = {ASSET_TAGS = (); }; };
+		B757C06B1BAA97F8003F14A7 /* DataCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B757C06A1BAA97F8003F14A7 /* DataCollection.m */; settings = {ASSET_TAGS = (); }; };
+		B757C06C1BAA97F8003F14A7 /* DataCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B757C06A1BAA97F8003F14A7 /* DataCollection.m */; settings = {ASSET_TAGS = (); }; };
 		BCBC33D07270F6FCCBCBBDF0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1A0E95D6C4F32D132613F1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 		B71F2F221BA60FEB006C3F28 /* DataEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataEntry.m; path = Data/DataEntry.m; sourceTree = "<group>"; };
 		B73C14B31BAA31B90089FD0E /* GAGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAGNavigationController.h; path = UI/GAGNavigationController.h; sourceTree = "<group>"; };
 		B73C14B41BAA31B90089FD0E /* GAGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GAGNavigationController.m; path = UI/GAGNavigationController.m; sourceTree = "<group>"; };
+		B757C0691BAA97F8003F14A7 /* DataCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataCollection.h; path = Data/DataCollection.h; sourceTree = "<group>"; };
+		B757C06A1BAA97F8003F14A7 /* DataCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataCollection.m; path = Data/DataCollection.m; sourceTree = "<group>"; };
 		FD1A0E95D6C4F32D132613F1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -192,6 +196,8 @@
 				B71F2F1E1BA60490006C3F28 /* DataManager.m */,
 				B71F2F211BA60FEB006C3F28 /* DataEntry.h */,
 				B71F2F221BA60FEB006C3F28 /* DataEntry.m */,
+				B757C0691BAA97F8003F14A7 /* DataCollection.h */,
+				B757C06A1BAA97F8003F14A7 /* DataCollection.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 				B71F2F081BA58819006C3F28 /* HomeTableCell.m in Sources */,
 				B73C14B51BAA31B90089FD0E /* GAGNavigationController.m in Sources */,
 				B71F2F121BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */,
+				B757C06B1BAA97F8003F14A7 /* DataCollection.m in Sources */,
 				B71F2F1F1BA60490006C3F28 /* DataManager.m in Sources */,
 				B71F2EDC1BA4D29F006C3F28 /* ViewController.m in Sources */,
 				B71F2ED31BA4D29F006C3F28 /* main.m in Sources */,
@@ -369,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B71F2F131BA59F7A006C3F28 /* HomeCollectionCell.m in Sources */,
+				B757C06C1BAA97F8003F14A7 /* DataCollection.m in Sources */,
 				B71F2F201BA60490006C3F28 /* DataManager.m in Sources */,
 				B71F2F241BA60FEB006C3F28 /* DataEntry.m in Sources */,
 				B71F2F0F1BA59AE5006C3F28 /* HorizontalScrollableCell.m in Sources */,
@@ -457,7 +465,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -495,7 +503,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

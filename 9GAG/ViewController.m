@@ -39,9 +39,8 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (IBAction)segmentChanged:(id)sender {
 	[self highlightSelectedSegment];
-	[[DataManager sharedManager] resetData];
 	[self.tableView reloadData];
-	[[DataManager sharedManager] retrieveData];
+	[[DataManager sharedManager] retrieveDataForKey:[self dataKeyForCurrentSegment]];
 }
 
 #pragma mark -
@@ -55,7 +54,20 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 - (void)startDataRetrieving {
 	DataManager *sharedDataManager = [DataManager sharedManager];
 	sharedDataManager.delegate = self;
-	[sharedDataManager retrieveData];
+	[sharedDataManager retrieveDataForKey:kAdDataKey];
+	[sharedDataManager retrieveDataForKey:[self dataKeyForCurrentSegment]];
+}
+
+- (NSInteger)selectedSegmentIndex {
+	return [self.segmentedControl selectedSegmentIndex];
+}
+
+- (NSString *)dataKeyForCurrentSegment {
+	return [[DataManager dataKeys] objectAtIndex:[self selectedSegmentIndex]];
+}
+
+- (NSArray *)entriesForKey:(NSString *)key {
+	return [[DataManager sharedManager] entriesForKey:key];
 }
 
 #pragma mark -
@@ -97,7 +109,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-	return AdSectionIndex == section ? 1 : [[[DataManager sharedManager] dataEntries][HotDataKey] count];
+	return AdSectionIndex == section ? 1 : [[self entriesForKey:[self dataKeyForCurrentSegment]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -110,7 +122,8 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 }
 
 - (CGFloat)heightForStandardHomeCellWithIndex:(NSInteger)index {
-	DataEntry *dataEntry = [self dataEntryAtIndex:index];
+	DataEntry *dataEntry = [self dataEntryAtIndex:index
+										  dataKey:[self dataKeyForCurrentSegment]];
 	return dataEntry.imageHeight + 45.0f;
 }
 
@@ -128,10 +141,11 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	return cell;
 }
 
--(HomeTableCell *)standardHomeTableCell:(NSIndexPath *)indexPath {
+- (HomeTableCell *)standardHomeTableCell:(NSIndexPath *)indexPath {
 	HomeTableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HomeTableCell"];
 	
-	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row]];
+	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row
+											dataKey:[self dataKeyForCurrentSegment]]];
 	
 	return cell;
 }
@@ -144,7 +158,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
 	 numberOfItemsInSection:(NSInteger)section {
-	return [[[DataManager sharedManager] dataEntries][HotDataKey] count];
+	return [[self entriesForKey:kAdDataKey] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -156,13 +170,15 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	HomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HomeCollectionCell" forIndexPath:indexPath];
 	
-	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row]];
+	[cell setupWithDataEntry:[self dataEntryAtIndex:indexPath.row
+											dataKey:kAdDataKey]];
 	
 	return cell;
 }
 
-- (DataEntry *)dataEntryAtIndex:(NSInteger)index {
-	return [[[DataManager sharedManager] dataEntries][HotDataKey] objectAtIndex:index];
+- (DataEntry *)dataEntryAtIndex:(NSInteger)index
+						dataKey:(NSString *)key {
+	return [[self entriesForKey:key] objectAtIndex:index];
 }
 
 #pragma mark -
@@ -184,7 +200,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	CGFloat loadMorePoint = scrollView.contentSize.height - self.tableView.frame.size.height * 2;
 	
 	if (actualPosition >= loadMorePoint) {
-		[[DataManager sharedManager] loadMore];
+		[[DataManager sharedManager] loadMoreForKey:[self dataKeyForCurrentSegment]];
 	}
 }
 
