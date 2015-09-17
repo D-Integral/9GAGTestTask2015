@@ -22,6 +22,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableDictionary *savedVisibleIndexPaths;
 
 @end
 
@@ -32,6 +33,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	
 	[self startDataRetrieving];
 	[self setupNavigationBar];
+	[self setupSavedVisibleIndexPaths];
 	[self highlightSelectedSegment];
 }
 
@@ -40,6 +42,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 - (IBAction)segmentChanged:(id)sender {
 	[self highlightSelectedSegment];
 	[self.tableView reloadData];
+	[self scrollToSavedIndexPath];
 	[[DataManager sharedManager] retrieveDataForKey:[self dataKeyForCurrentSegment]];
 }
 
@@ -50,6 +53,15 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 }
 
 #pragma mark -
+
+- (void)setupSavedVisibleIndexPaths {
+	self.savedVisibleIndexPaths = [NSMutableDictionary dictionary];
+	
+	for (NSString *key in [DataManager dataKeys]) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.savedVisibleIndexPaths setValue:indexPath forKey:key];
+	}
+}
 
 - (void)startDataRetrieving {
 	DataManager *sharedDataManager = [DataManager sharedManager];
@@ -68,6 +80,19 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (NSArray *)entriesForKey:(NSString *)key {
 	return [[DataManager sharedManager] entriesForKey:key];
+}
+
+- (void)scrollToSavedIndexPath {
+	NSIndexPath *savedVisibleIndexPath = self.savedVisibleIndexPaths[[self dataKeyForCurrentSegment]];
+	[self.tableView scrollToRowAtIndexPath:savedVisibleIndexPath
+						  atScrollPosition:UITableViewScrollPositionTop
+								  animated:NO];
+}
+
+- (void)saveScrollPosition {
+	[self.savedVisibleIndexPaths removeObjectForKey:[self dataKeyForCurrentSegment]];
+	NSIndexPath *firstVisibleIndexPath = [self.tableView indexPathsForVisibleRows][0];
+	[self.savedVisibleIndexPaths setValue:firstVisibleIndexPath forKey:[self dataKeyForCurrentSegment]];
 }
 
 #pragma mark -
@@ -202,6 +227,8 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	if (actualPosition >= loadMorePoint) {
 		[[DataManager sharedManager] loadMoreForKey:[self dataKeyForCurrentSegment]];
 	}
+	
+	[self saveScrollPosition];
 }
 
 @end
