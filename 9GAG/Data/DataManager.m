@@ -15,7 +15,8 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 
 @interface DataManager ()
 
-@property (nonatomic, assign) NSInteger pageNumber;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, assign) NSInteger loadingPage;
 
 @end
 
@@ -27,11 +28,22 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 	
 	dispatch_once(&onceToken, ^{
 		sharedManager = [[self alloc] init];
-		sharedManager.dataEntries = [NSMutableArray array];
-		sharedManager.pageNumber = 1;
+		NSMutableDictionary *dataEntries = [NSMutableDictionary dictionary];
+		
+		for (NSString *dataKey in [self dataKeys]) {
+			[dataEntries setValue:[NSMutableArray array] forKey:dataKey];
+		}
+		
+		sharedManager.dataEntries = dataEntries;
+		sharedManager.currentPage = -1;
+		sharedManager.loadingPage = 1;
 	});
 	
 	return sharedManager;
+}
+
++ (NSArray *)dataKeys {
+	return @[HotDataKey, TrendingDataKey, FreshDataKey, AdDataKey];
 }
 
 - (void)retrieveData
@@ -44,9 +56,9 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 	
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 		[self setupDataWithResponseArray:(NSArray *)responseObject];
+		self.currentPage = self.loadingPage;
 		[self.delegate dataRetrieved];
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		
 		NSLog(@"Error Retrieving Data: %@", [error localizedDescription]);
 	}];
 	
@@ -54,7 +66,7 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 }
 
 - (NSString *)allDataPath {
-	return [NSString stringWithFormat:@"%@api/image/?limit=10&page=%ld", BaseURLString, (long)self.pageNumber];
+	return [NSString stringWithFormat:@"%@api/image/?limit=10&page=%ld", BaseURLString, (long)self.loadingPage];
 }
 
 - (void)setupDataWithResponseArray:(NSArray *)responseArray {
@@ -63,14 +75,21 @@ static NSString * const BaseURLString = @"http://dm.arcana.com.ua/";
 		entry.title = entryDict[@"title"];
 		entry.imagePath = [NSString stringWithFormat:@"%@%@", BaseURLString, entryDict[@"path"]];
 		entry.imageHeight = 100;
-		[self.dataEntries addObject:entry];
+		[self.dataEntries[HotDataKey] addObject:entry];
 	}
 }
 
 - (void)loadMore {
-	self.pageNumber++;
-	
-	[self retrieveData];
+	if (self.currentPage == self.loadingPage) {
+		self.loadingPage++;
+		[self retrieveData];
+	}
+}
+
+- (void)resetData {
+	self.currentPage = -1;
+	self.loadingPage = 1;
+	[self.dataEntries[HotDataKey] removeAllObjects];
 }
 
 @end

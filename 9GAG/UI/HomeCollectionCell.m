@@ -8,7 +8,7 @@
 
 #import "HomeCollectionCell.h"
 
-#import "UIImageView+WebCache.h"
+#import <DFImageManagerKit.h>
 
 #import "DataEntry.h"
 
@@ -18,7 +18,13 @@
 	self.titleLabel.text = dataEntry.title;
 	
 	NSURL *url = [NSURL URLWithString:dataEntry.imagePath];
-	[self.funPicture sd_setImageWithURL:url];
+	[self.funPicture setImageWithRequest:[DFImageRequest requestWithResource:url]];
+}
+
+- (void)prepareForReuse {
+	[super prepareForReuse];
+	
+	[self.funPicture prepareForReuse];
 }
 
 @end

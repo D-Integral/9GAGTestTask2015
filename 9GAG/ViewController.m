@@ -39,7 +39,15 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (IBAction)segmentChanged:(id)sender {
 	[self highlightSelectedSegment];
+	[[DataManager sharedManager] resetData];
 	[self.tableView reloadData];
+	[[DataManager sharedManager] retrieveData];
+}
+
+#pragma mark -
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+	return UIStatusBarStyleLightContent;
 }
 
 #pragma mark -
@@ -89,7 +97,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-	return AdSectionIndex == section ? 1 : [[[DataManager sharedManager] dataEntries] count];
+	return AdSectionIndex == section ? 1 : [[[DataManager sharedManager] dataEntries][HotDataKey] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -136,7 +144,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
 	 numberOfItemsInSection:(NSInteger)section {
-	return [[[DataManager sharedManager] dataEntries] count];
+	return [[[DataManager sharedManager] dataEntries][HotDataKey] count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -154,7 +162,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 }
 
 - (DataEntry *)dataEntryAtIndex:(NSInteger)index {
-	return [[[DataManager sharedManager] dataEntries] objectAtIndex:index];
+	return [[[DataManager sharedManager] dataEntries][HotDataKey] objectAtIndex:index];
 }
 
 #pragma mark -
@@ -170,14 +178,13 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 #pragma mark -
 #pragma mark UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView_
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	CGFloat actualPosition = scrollView_.contentOffset.y;
-	CGFloat contentHeight = scrollView_.contentSize.height - self.view.frame.size.height;
+	CGFloat actualPosition = scrollView.contentOffset.y;
+	CGFloat loadMorePoint = scrollView.contentSize.height - self.tableView.frame.size.height * 2;
 	
-	if (actualPosition >= contentHeight) {
+	if (actualPosition >= loadMorePoint) {
 		[[DataManager sharedManager] loadMore];
-		[self.tableView reloadData];
 	}
 }
 

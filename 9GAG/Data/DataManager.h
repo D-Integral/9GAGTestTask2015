@@ -11,6 +11,7 @@
 static NSString * const HotDataKey = @"hot";
 static NSString * const TrendingDataKey = @"trending";
 static NSString * const FreshDataKey = @"fresh";
+static NSString * const AdDataKey = @"ad";
 
 @protocol DataManagerDelegate <NSObject>
 
@@ -20,12 +21,13 @@ static NSString * const FreshDataKey = @"fresh";
 
 @interface DataManager : NSObject
 
-@property (nonatomic, retain) NSMutableArray *dataEntries;
+@property (nonatomic, retain) NSDictionary *dataEntries;
 @property (nonatomic, weak) id<DataManagerDelegate> delegate;
 
 + (id)sharedManager;
 
 - (void)retrieveData;
 - (void)loadMore;
+- (void)resetData;
 
 @end

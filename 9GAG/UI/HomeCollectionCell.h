@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class DataEntry;
+@class DFImageView;
 
 @interface HomeCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *funPicture;
+@property (weak, nonatomic) IBOutlet DFImageView *funPicture;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 - (void)setupWithDataEntry:(DataEntry *)dataEntry;
