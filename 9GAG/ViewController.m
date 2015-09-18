@@ -35,6 +35,7 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	[self setupNavigationBar];
 	[self setupSavedVisibleIndexPaths];
 	[self highlightSelectedSegment];
+	[self setupSwipe];
 }
 
 #pragma mark -
@@ -44,6 +45,22 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 	[self.tableView reloadData];
 	[self scrollToSavedIndexPath];
 	[[DataManager sharedManager] retrieveDataForKey:[self dataKeyForCurrentSegment]];
+}
+
+- (IBAction)swipeRight:(id)sender
+{
+	if ([self selectedSegmentIndex] > 0) {
+		self.segmentedControl.selectedSegmentIndex = [self selectedSegmentIndex] - 1;
+		[self segmentChanged:sender];
+	}
+}
+
+- (IBAction)swipeLeft:(id)sender
+{
+	if ([self selectedSegmentIndex] < [self.segmentedControl.subviews count]-1) {
+		self.segmentedControl.selectedSegmentIndex = [self selectedSegmentIndex] + 1;
+		[self segmentChanged:sender];
+	}
 }
 
 #pragma mark -
@@ -62,6 +79,18 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 		[self.savedVisibleIndexPaths setValue:indexPath forKey:key];
 	}
 }
+
+- (void)setupSwipe {
+	UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
+	[swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+	[self.tableView addGestureRecognizer:swipeLeft];
+	
+	UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
+	[swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+	[self.tableView addGestureRecognizer:swipeRight];
+}
+
+#pragma mark -
 
 - (void)startDataRetrieving {
 	DataManager *sharedDataManager = [DataManager sharedManager];

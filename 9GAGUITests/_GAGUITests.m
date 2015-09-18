@@ -24,6 +24,9 @@
 - (void)testUserInterface {
 	XCUIApplication *app = [XCUIApplication new];
 	XCTAssertEqualObjects([[[app navigationBars] element] identifier], @"9GAG");
+	
+	[[[app tables] element] swipeLeft];
+	XCTAssertEqualObjects([[[app navigationBars] element] identifier], @"9GAG");
 }
 
 @end
