@@ -119,9 +119,11 @@ CGSize const AdSectionItemSize = {160.0f, 160.0f};
 }
 
 - (void)saveScrollPosition {
-	[self.savedVisibleIndexPaths removeObjectForKey:[self dataKeyForCurrentSegment]];
-	NSIndexPath *firstVisibleIndexPath = [self.tableView indexPathsForVisibleRows][0];
-	[self.savedVisibleIndexPaths setValue:firstVisibleIndexPath forKey:[self dataKeyForCurrentSegment]];
+	if ([[self.tableView indexPathsForVisibleRows] count]) {
+		[self.savedVisibleIndexPaths removeObjectForKey:[self dataKeyForCurrentSegment]];
+		NSIndexPath *firstVisibleIndexPath = [self.tableView indexPathsForVisibleRows][0];
+		[self.savedVisibleIndexPaths setValue:firstVisibleIndexPath forKey:[self dataKeyForCurrentSegment]];
+	}
 }
 
 #pragma mark -

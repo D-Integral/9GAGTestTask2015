@@ -19,7 +19,9 @@
 
 - (void)testDataManager {
 	DataManager *dataManager = [DataManager sharedManager];
+	XCTAssertNotNil(dataManager);
 	XCTAssertNotNil(dataManager.dataCollections);
+	XCTAssertEqual([dataManager.dataCollections count], 4);
 }
 
 - (void)testPerformanceExample {
